@@ -7,5 +7,6 @@ repo.list
 
 # Exempt the files we do want to keep versioned
 !repos.sh
+!changelog.sh
 !README.md
 !.gitignore
