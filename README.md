@@ -45,10 +45,16 @@ Place in the root of where you want to manage your repos.
 A good place is `~/projects`. 
 
 ```bash
+git clone https://github.com/neozenith/git-herder.git ~/projects
 cd ~/projects
 # Add execute property first time only if necessary.
 chmod +x repos.sh
 ./repos.sh
 ```
 
-I personally split up personal and work repos as they need different server credentials.
+I personally split up personal and work repos as they need different host parameters.
+
+```bash
+git clone https://github.com/neozenith/git-herder.git ~/projects/josh
+git clone https://github.com/neozenith/git-herder.git ~/projects/work
+```
