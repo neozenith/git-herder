@@ -1,0 +1,11 @@
+# Explicitly ignore credential files
+.env
+repo.list
+
+# Ignore EVERYTHING recursively as they will be their own repos
+/**/*
+
+# Exempt the files we do want to keep versioned
+!repos.sh
+!README.md
+!.gitignore
