@@ -19,6 +19,34 @@ function die() {
     exit 1
 }
 
+function commit_delta(){
+
+  local BRANCH=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
+  if [[ -n $BRANCH ]]; then
+  
+    # Colours: Define Colours and platform specific escape codes
+    local ESC_CODE="\e"
+    [[ $OSTYPE == darwin* ]] && ESC_CODE="\033"
+
+    local RED="$ESC_CODE[31m"
+    local GREEN="$ESC_CODE[32m"
+    local YELLOW="$ESC_CODE[33m"
+    local BLUE="$ESC_CODE[34m"
+    local PURPLE="$ESC_CODE[36m"
+    local NORM="$ESC_CODE[0m"
+
+    local REMOTE_STATUS=""
+    for r in `git remote 2> /dev/null`; do
+      local UP=`git cherry $r/$BRANCH $BRANCH 2> /dev/null | wc -l | tr -d '[:space:]'`
+      local DOWN=`git cherry $BRANCH $r/$BRANCH 2> /dev/null | wc -l | tr -d '[:space:]'`
+      # if [ $UP -gt  0 ] || [ $DOWN -gt 0 ];then
+        REMOTE_STATUS="$REMOTE_STATUS ${PURPLE}${r}|${BLUE}↑${UP}${PURPLE}/${GREEN}↓${DOWN}$PURPLE|$NORM"
+      # fi
+    done
+    echo -e "$REMOTE_STATUS"
+  fi
+}
+
 # Default list file
 REPO_LIST_FILE="repo.list"
 # If exists, load contents and check that it is non empty
@@ -38,16 +66,20 @@ function repo_status() {
 	master..origin/master
 	"
 
+  notice "Push/Pull:"
+  commit_delta
+
 	for ref in $REFLIST; do
 		notice "Changelog: ${ref}"
 		git log "${ref}"  --pretty=format:"%C(bold blue)%h%x09%C(bold green)[%ad] %C(auto)%d%n%C(dim white)%an - %C(reset)%x20%s" --date=relative -n 10
 	done
-	if [ -f package.json ]; then
-		npm install
+
+	# if [ -f package.json ]; then
+		# npm install
 		# npm outdated
 		# eslint *.js
 		# npm test
-	fi
+	# fi
 }
 
 for repo in $REPOLIST; do
