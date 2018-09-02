@@ -87,7 +87,7 @@ for repo in $REPOLIST; do
 	title "$repo"
 	if [ ! -d "$repo/.git" ]; then 
 		notice "Cloning $repo ..."
-		git clone $USERNAME@$GIT_HOST/$repo
+		git clone $GIT_HOST/$repo
 
 		cd $repo
 			repo_status 

@@ -18,7 +18,7 @@ You will need to create a `.env` file with the following values exported:
 
 ```bash
 USERNAME="neozenith"
-GITHOST="github.com/$USERNAME"
+GIT_HOST="https://github.com/$USERNAME"
 ```
 
 ## Repo List
@@ -30,12 +30,13 @@ listing the names of the repositories you wish to keep in sync. eg
 vim-dotfiles
 arduino-bonsai
 data-vis-101
+neozenith.github.io
 ```
 
 These will wind up as parameters that fulfill the following command:
 
 ```bash
-git clone $USERNAME@$GITHOST/$REPO
+git clone $GIT_HOST/$REPO
 ```
 
 # Usage
