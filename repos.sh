@@ -95,10 +95,10 @@ for repo in $REPOLIST; do
 
 	else
 		cd "$repo"
-		notice "Fetching $repo ..."
-		git fetch --all --prune
-		notice "Fetching $repo tags..."
-		git fetch --all --tags --prune
+		# notice "Fetching $repo ..."
+		git fetch --all --prune --quiet
+		# notice "Fetching $repo tags..."
+		git fetch --all --tags --prune --quiet
 	
 		repo_status 
 		cd ..
